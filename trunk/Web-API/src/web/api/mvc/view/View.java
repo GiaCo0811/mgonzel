@@ -6,5 +6,5 @@ package web.api.mvc.view;
  *
  */
 public interface View {
-
+	public void execute() throws Exception;
 }

@@ -1,0 +1,28 @@
+package test.web.bid;
+
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import web.api.cache.HtmlCache;
+import web.api.cache.key.HtmlCacheKey;
+import web.api.mvc.view.HtmlView;
+
+public class BidHtmlView extends HtmlView {
+
+	public BidHtmlView(HttpServletRequest req, HttpServletResponse res,
+			HashMap<String, Object> requestAttributes) throws Exception {
+		super(req, res, requestAttributes);
+	}
+
+	@Override
+	protected void doHtmlBody() {
+		HtmlCache cache = HtmlCache.getInstance();
+		
+		
+		out.println(cache.get(new HtmlCacheKey("BidHtml")));
+
+	}
+
+}

@@ -30,8 +30,9 @@ public abstract class WebView implements View {
 		this.out = new HtmlWriter(res);
 	}
 
-	protected void execute(){
+	public void execute() throws Exception {
 		doHttpHeader();
+		htmlOpen();
 		htmlHeaderOpen();
 		doHtmlHeader();
 		htmlHeaderClose();
@@ -40,8 +41,18 @@ public abstract class WebView implements View {
 		doHtmlBody();
 		doHtmlFooter();
 		bodyClose();
+		htmlClose();
 		
 		writeHtml();
+	}
+	
+	private void htmlOpen() {
+		out.println("<html>");
+		
+	}
+	private void htmlClose() {
+		out.println("</html>");
+		
 	}
 	private void htmlHeaderClose() {
 		out.println("</header>");
