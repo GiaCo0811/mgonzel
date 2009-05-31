@@ -18,21 +18,17 @@ public abstract class HtmlView extends WebView {
 
 	@Override
 	protected void doHtmlFooter() {
-		// TODO Auto-generated method stub
-
+		out.println(HtmlCache.getHtml("FooterDefault"));
 	}
 
 	@Override
 	protected void doHtmlHeader() {
-
+		out.println(HtmlCache.getHtml("HtmlHeaderDefault"));
 	}
 
 	@Override
 	protected void doHtmlMenu() {
-		HtmlCache cache = HtmlCache.getInstance();
-		
-		out.println(cache.get(new HtmlCacheKey("MenuLaRematada")));
-
+		out.println(HtmlCache.getHtml("MenuDefault"));
 	}
 
 }
