@@ -1,6 +1,7 @@
 package web.api.files;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -51,6 +52,12 @@ public class InputTextFile {
 	}
 
 	private void open() throws FileNotFoundException {
+//		try {
+//			File arch = new File(fileName);
+//			System.out.println("PATH=" + arch.getAbsolutePath());
+//		} catch (Exception e){
+//			
+//		}
 		r = new BufferedReader(new FileReader(fileName));
 	}
 	

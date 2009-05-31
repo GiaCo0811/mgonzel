@@ -38,5 +38,11 @@ public class HtmlCache extends Cache<String>{
 		} 
 		map.put(k, html.toString());
 	}
+	
+	public static String getHtml(String html){
+		HtmlCache cache = HtmlCache.getInstance();
+		
+		return cache.get(new HtmlCacheKey(html));
+	}
 
 }

@@ -18,10 +18,8 @@ public class BidHtmlView extends HtmlView {
 
 	@Override
 	protected void doHtmlBody() {
-		HtmlCache cache = HtmlCache.getInstance();
-		
-		
-		out.println(cache.get(new HtmlCacheKey("BidHtml")));
+
+		out.println(HtmlCache.getHtml("BidHtml"));
 
 	}
 
