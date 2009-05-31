@@ -1,23 +1,28 @@
 package web.api.mvc.view;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import web.api.mvc.model.Model;
 
-public abstract class WebView {
-	HttpServletRequest req;
-	HttpServletResponse res;
+public abstract class WebView implements View {
+	protected HttpServletRequest req;
+	protected HttpServletResponse res;
+	protected HashMap<String, Object> requestAttributes;
 
-	Model model;
+	protected Model model;
 
 	protected void setModel(Model model){
 		this.model = model;
 	}
 
-	public WebView(HttpServletRequest req, HttpServletResponse res) {
+	public WebView(HttpServletRequest req, HttpServletResponse res,
+			HashMap<String,Object> requestAttributes) {
 		this.req = req;
 		this.res = res;
+		this.requestAttributes = requestAttributes;
 	}
 
 	protected void execute(){
