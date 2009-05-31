@@ -1,17 +1,21 @@
 package web.api.mvc.view;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import web.api.mvc.model.Model;
+import web.api.writers.HtmlWriter;
 
 public abstract class WebView implements View {
 	protected HttpServletRequest req;
 	protected HttpServletResponse res;
 	protected HashMap<String, Object> requestAttributes;
 
+	protected HtmlWriter out;
+	
 	protected Model model;
 
 	protected void setModel(Model model){
@@ -19,19 +23,48 @@ public abstract class WebView implements View {
 	}
 
 	public WebView(HttpServletRequest req, HttpServletResponse res,
-			HashMap<String,Object> requestAttributes) {
+			HashMap<String,Object> requestAttributes) throws Exception {
 		this.req = req;
 		this.res = res;
 		this.requestAttributes = requestAttributes;
+		this.out = new HtmlWriter(res);
 	}
 
 	protected void execute(){
 		doHttpHeader();
+		htmlHeaderOpen();
 		doHtmlHeader();
+		htmlHeaderClose();
+		bodyOpen();
 		doHtmlMenu();
 		doHtmlBody();
 		doHtmlFooter();
+		bodyClose();
+		
+		writeHtml();
 	}
+	private void htmlHeaderClose() {
+		out.println("</header>");
+		
+	}
+
+	private void htmlHeaderOpen() {
+		out.println("<header>");
+	}
+
+	private void bodyClose() {
+		out.println("</body>");
+		
+	}
+
+	private void bodyOpen() {
+		out.println("<body>");		
+	}
+
+	private void writeHtml() {
+		out.flush();		
+	}
+
 	protected void doHttpHeader(){
 		setContentType();
 		setCacheControl();

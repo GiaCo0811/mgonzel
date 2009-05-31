@@ -5,11 +5,14 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import web.api.cache.HtmlCache;
+import web.api.cache.key.HtmlCacheKey;
+
 public abstract class HtmlView extends WebView {
 
 
 	public HtmlView(HttpServletRequest req, HttpServletResponse res,
-			HashMap<String,Object> requestAttributes) {
+			HashMap<String,Object> requestAttributes) throws Exception {
 		super(req,res,requestAttributes);
 	}
 
@@ -21,13 +24,14 @@ public abstract class HtmlView extends WebView {
 
 	@Override
 	protected void doHtmlHeader() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	protected void doHtmlMenu() {
-		// TODO Auto-generated method stub
+		HtmlCache cache = HtmlCache.getInstance();
+		
+		out.println(cache.get(new HtmlCacheKey("MenuLaRematada")));
 
 	}
 
