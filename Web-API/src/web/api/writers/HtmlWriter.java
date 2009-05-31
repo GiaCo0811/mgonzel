@@ -13,6 +13,7 @@ public class HtmlWriter {
 	
 	public HtmlWriter(HttpServletResponse res) throws IOException {
 		this.writer = res.getWriter();
+		this.buffer = new StringBuffer();
 	}
 	public void println(String s){
 		buffer.append(s+HtmlWriter.EOL);

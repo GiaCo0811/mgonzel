@@ -73,8 +73,10 @@ public abstract class AbstractControllerServlet extends HttpServlet implements C
 		
 		Cookie [] arCookie = req.getCookies();
 		
-		for (Cookie cookie : arCookie){
-			cookies.put(cookie.getName(), cookie.getValue());
+		if (arCookie != null){
+			for (Cookie cookie : arCookie){
+				cookies.put(cookie.getName(), cookie.getValue());
+			}
 		}
 		return cookies;	
 	}

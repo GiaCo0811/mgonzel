@@ -1,5 +1,6 @@
 package web.api.mvc.controller;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ public abstract class FrontEndControllerServlet extends AbstractControllerServle
 
 	private static final long serialVersionUID = -8973262686871954774L;
 
-	protected void execute(HttpServletRequest req, HttpServletResponse res){
+	protected void execute(HttpServletRequest req, HttpServletResponse res) {
 		
 		//Atributos del request
 		HashMap<String,Object> requestAttributes = new HashMap<String, Object>();
@@ -40,12 +41,32 @@ public abstract class FrontEndControllerServlet extends AbstractControllerServle
 			}
 		}
 		
-		executeView(req,res,requestAttributes);
+		try {
+			executeView(req,res,requestAttributes);
+		} catch (Exception e){
+			showExceptionView(req,res, requestAttributes, e);
+		}
 
 	}
 	
+	private void showExceptionView(HttpServletRequest req,
+			HttpServletResponse res, HashMap<String, Object> requestAttributes, Exception e) {
+		try { 
+			PrintWriter w = res.getWriter();
+			w.println("Exception:");
+			StackTraceElement []stacks = e.getStackTrace();
+			for (StackTraceElement stack : stacks){
+				w.println(stack);
+			}
+			e.printStackTrace();
+		}catch (Exception we){
+			System.out.println("Error fatal, no puede escribir en Response");
+		}
+		
+	}
+
 	protected abstract void executeView(HttpServletRequest req, HttpServletResponse res,
-			HashMap<String, Object> requestAttributes);
+			HashMap<String, Object> requestAttributes) throws Exception;
 
 	private boolean validateSession(HashMap<String, String> cookies) {
 		String [] login = ((String)cookies.get("user")).split("-");
