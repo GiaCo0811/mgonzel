@@ -6,6 +6,8 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import web.api.login.views.LoginView;
+import web.api.mvc.view.View;
 import web.api.session.SessionValidation;
 
 /**
@@ -23,38 +25,45 @@ public abstract class FrontEndControllerServlet extends AbstractControllerServle
 		HashMap<String,Object> requestAttributes = new HashMap<String, Object>();
 		
 		HashMap<String,Object> parameters = loadRequestParameters(req);
-		requestAttributes.put("parameters", parameters);
+		requestAttributes.put(AbstractControllerServlet.PARAMETERS, parameters);
 		
 		//Contexto
 		
 		//carga de Cookies
 		HashMap<String, String> cookies = loadCookies(req); 
-		requestAttributes.put("cookies", cookies);
+		requestAttributes.put(AbstractControllerServlet.COOKIES, cookies);
 
-		//validacion de sesion
-		if (getValidated(req)){
-			boolean sessionValidated = validateSession(cookies);
-			
-			if (!sessionValidated){
-				//showLoginView(req, res);
-				return;
-			}
-		}
-		
 		try {
-			executeView(req,res,requestAttributes);
+			//validacion de sesion
+			if (getValidated(req)){
+				boolean sessionValidated = validateSession(cookies);
+				
+				if (!sessionValidated){
+					showLoginView(req, res,requestAttributes,parameters);
+					return;
+				}
+			}
+			executeView(req,res,requestAttributes,parameters);
 		} catch (Exception e){
 			showExceptionView(req,res, requestAttributes, e);
 		}
 
 	}
 	
+	private void showLoginView(HttpServletRequest req, HttpServletResponse res,
+			HashMap<String, Object> requestAttributes,HashMap<String,Object> requestParameters) throws Exception {
+		View view = new LoginView(req,res,requestAttributes,requestParameters);
+		
+		view.execute();
+	}
+
 	private void showExceptionView(HttpServletRequest req,
 			HttpServletResponse res, HashMap<String, Object> requestAttributes, Exception e) {
 		try { 
 			PrintWriter w = res.getWriter();
 			w.println("Exception:");
 			StackTraceElement []stacks = e.getStackTrace();
+			w.println(e);
 			for (StackTraceElement stack : stacks){
 				w.println(stack);
 			}
@@ -66,10 +75,15 @@ public abstract class FrontEndControllerServlet extends AbstractControllerServle
 	}
 
 	protected abstract void executeView(HttpServletRequest req, HttpServletResponse res,
-			HashMap<String, Object> requestAttributes) throws Exception;
+			HashMap<String, Object> requestAttributes, HashMap<String,Object> requestParameters) throws Exception;
 
 	private boolean validateSession(HashMap<String, String> cookies) {
-		String [] login = ((String)cookies.get("user")).split("-");
+		String userCookie = (String)cookies.get("user");
+		
+		if (userCookie == null){
+			return false;
+		}
+		String [] login = userCookie.split("-");
 		int userId = Integer.parseInt(login[0]);
 		long hash = Long.parseLong(login[1]);
 		return SessionValidation.validateSession(userId,hash);

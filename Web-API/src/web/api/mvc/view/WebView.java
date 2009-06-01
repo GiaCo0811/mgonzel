@@ -23,7 +23,7 @@ public abstract class WebView implements View {
 	}
 
 	public WebView(HttpServletRequest req, HttpServletResponse res,
-			HashMap<String,Object> requestAttributes) throws Exception {
+			HashMap<String,Object> requestAttributes,HashMap<String,Object> requestParameters) throws Exception {
 		this.req = req;
 		this.res = res;
 		this.requestAttributes = requestAttributes;

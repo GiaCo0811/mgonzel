@@ -56,8 +56,13 @@ public abstract class AbstractControllerServlet extends HttpServlet implements C
 		Iterator paramIter = reqParameters.keySet().iterator(); 
 		while (paramIter.hasNext()){
 			String key = (String)paramIter.next();
-			
-			parameters.put(key, reqParameters.get(key));
+			Object [] value = (Object []) reqParameters.get(key);
+			if (value.length==1){
+				parameters.put(key,value[0]);
+			} else {
+				parameters.put(key, value);
+			}
+				
 		}
 		
 		return parameters;

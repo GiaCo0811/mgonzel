@@ -10,13 +10,15 @@ public class SessionValidation {
 	public static String ADMIN_USER_SESSION = "ADMIN";
 	
 	
-	public static void createSession(int userId) throws Exception {
+	public static Session createSession(int userId) throws Exception {
 		long time = System.currentTimeMillis();
 		long expTime = time + SessionValidation.DAY_MILLIS;
 		
 		Session sess = new Session(SessionValidation.class,userId, expTime, SessionValidation.END_USER_SESSION);
 		
 		addSession(sess);
+		
+		return sess;
 	}
 
 

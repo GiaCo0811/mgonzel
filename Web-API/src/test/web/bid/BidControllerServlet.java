@@ -12,12 +12,16 @@ public class BidControllerServlet extends FrontEndControllerServlet {
 
 	@Override
 	protected void executeView(HttpServletRequest req, HttpServletResponse res,
-			HashMap<String, Object> requestAttributes) throws Exception {
+			HashMap<String, Object> requestAttributes,HashMap<String,Object> requestParameters) throws Exception {
 
 
-		View view = new BidHtmlView(req,res,requestAttributes);
+		View view = new BidHtmlView(req,res,requestAttributes,requestParameters);
 
 		view.execute();
 	}
 
+	@Override
+	protected boolean getValidated(HttpServletRequest req) {
+		return true;
+	}
 }
