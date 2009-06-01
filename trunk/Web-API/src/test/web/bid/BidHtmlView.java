@@ -12,8 +12,8 @@ import web.api.mvc.view.HtmlView;
 public class BidHtmlView extends HtmlView {
 
 	public BidHtmlView(HttpServletRequest req, HttpServletResponse res,
-			HashMap<String, Object> requestAttributes) throws Exception {
-		super(req, res, requestAttributes);
+			HashMap<String, Object> requestAttributes,HashMap<String,Object> requestParameters) throws Exception {
+		super(req, res, requestAttributes,requestParameters);
 	}
 
 	@Override

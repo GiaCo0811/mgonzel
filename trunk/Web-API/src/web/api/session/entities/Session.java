@@ -22,7 +22,7 @@ public class Session {
 	
 	public Session(Class loginClass, int userId, long expiration,String type) 
 				throws ForbiddenLoginClassException {
-		if (!(loginClass.getClass().equals(SessionValidation.class))){
+		if (!(loginClass.equals(SessionValidation.class))){
 			throw new ForbiddenLoginClassException("Quiso crear login desde class: "+loginClass.getName());
 		}
 		this.userId = userId;
@@ -41,5 +41,11 @@ public class Session {
 		}
 		Session s = (Session)obj;
 		return this.userId == s.userId && this.type.equals(s.type);
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return userId+"-"+expiration;
 	}
 }
