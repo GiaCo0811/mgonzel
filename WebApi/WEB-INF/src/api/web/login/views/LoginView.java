@@ -21,7 +21,7 @@ public class LoginView extends HtmlView {
 
 	@Override
 	protected void doHtmlBody() {
-		String html = HtmlCache.getHtml("login/LoginView");
+		String html = HtmlCache.getHtml(relativePath,"login/LoginView");
 		String urlRedir = req.getRequestURI();
 		String queryString = req.getQueryString();
 		if (queryString != null && queryString.length()>0){
@@ -31,7 +31,5 @@ public class LoginView extends HtmlView {
 		
 		out.println(html);
 	}
-
-
 
 }

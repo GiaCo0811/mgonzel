@@ -5,14 +5,16 @@ public class HtmlCacheKey extends CacheKey {
 	public final static String FILE_PATH = "./files/html/";
 	public final static String FILE_EXT = ".html";
 	public final String fileName;
+	public final String relativePath;
 	
-	public HtmlCacheKey(String filename) {
+	public HtmlCacheKey(String relativePath, String filename) {
 		this.fileName = filename;
+		this.relativePath = relativePath;
 	}
 
 	
 	public String getFullName(){
-		return HtmlCacheKey.FILE_PATH + fileName + HtmlCacheKey.FILE_EXT;
+		return this.relativePath + HtmlCacheKey.FILE_PATH + fileName + HtmlCacheKey.FILE_EXT;
 	}
 	
 	@Override
@@ -23,7 +25,7 @@ public class HtmlCacheKey extends CacheKey {
 
 	@Override
 	public int hashCode() {
-		return this.fileName.hashCode();
+		return (this.relativePath+this.fileName).hashCode();
 	}
 
 }
