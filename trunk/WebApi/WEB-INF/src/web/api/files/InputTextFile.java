@@ -52,12 +52,13 @@ public class InputTextFile {
 	}
 
 	private void open() throws FileNotFoundException {
-//		try {
-//			File arch = new File(fileName);
-//			System.out.println("PATH=" + arch.getAbsolutePath());
-//		} catch (Exception e){
-//			
-//		}
+		try {
+			File arch = new File(fileName);
+			System.out.println("PATH=" + arch.getAbsolutePath());
+		} catch (Exception e){
+			
+		}
+
 		r = new BufferedReader(new FileReader(fileName));
 	}
 	

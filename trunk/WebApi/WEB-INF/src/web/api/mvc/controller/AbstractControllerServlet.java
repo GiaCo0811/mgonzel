@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +24,9 @@ public abstract class AbstractControllerServlet extends HttpServlet implements C
 	public static String COOKIES = "cookies";
 	public static String PARAMETERS = "parameters";
 	
+	{
+		
+	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -44,6 +48,9 @@ public abstract class AbstractControllerServlet extends HttpServlet implements C
 	
 	protected abstract void execute(HttpServletRequest req, HttpServletResponse res);
 	
+	protected abstract void executeView(HttpServletRequest req, HttpServletResponse res,
+			HashMap<String, Object> requestAttributes, ServletContext servletContext, HashMap<String,Object> requestParameters) throws Exception;
+
 	/**
 	 * Carga los parametros de la pagina, incluyendo los enviados por URL.
 	 * @param req
@@ -85,6 +92,7 @@ public abstract class AbstractControllerServlet extends HttpServlet implements C
 		}
 		return cookies;	
 	}
+	
 	
 
 }
