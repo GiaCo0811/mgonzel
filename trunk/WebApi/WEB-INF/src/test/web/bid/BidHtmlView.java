@@ -20,7 +20,7 @@ public class BidHtmlView extends HtmlView {
 	@Override
 	protected void doHtmlBody() {
 
-		out.println(HtmlCache.getHtml("BidHtml"));
+		out.println(HtmlCache.getHtml(relativePath,"BidHtml"));
 
 	}
 

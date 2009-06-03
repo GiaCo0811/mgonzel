@@ -40,10 +40,10 @@ public class HtmlCache extends Cache<String>{
 		map.put(k, html.toString());
 	}
 	
-	public static String getHtml(String html){
+	public static String getHtml(String relativePath, String html){
 		HtmlCache cache = HtmlCache.getInstance();
 		
-		return cache.get(new HtmlCacheKey(html));
+		return cache.get(new HtmlCacheKey(relativePath,html));
 	}
 
 }

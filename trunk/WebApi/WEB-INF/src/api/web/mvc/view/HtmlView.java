@@ -19,17 +19,17 @@ public abstract class HtmlView extends WebView {
 
 	@Override
 	protected void doHtmlFooter() {
-		out.println(HtmlCache.getHtml("FooterDefault"));
+		out.println(HtmlCache.getHtml(relativePath,"FooterDefault"));
 	}
 
 	@Override
 	protected void doHtmlHeader() {
-		out.println(HtmlCache.getHtml("HtmlHeaderDefault"));
+		out.println(HtmlCache.getHtml(relativePath,"HtmlHeaderDefault"));
 	}
 
 	@Override
 	protected void doHtmlMenu() {
-		out.println(HtmlCache.getHtml("MenuDefault"));
+		out.println(HtmlCache.getHtml(relativePath,"MenuDefault"));
 	}
 
 }
