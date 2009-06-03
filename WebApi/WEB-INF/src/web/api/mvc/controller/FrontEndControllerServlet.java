@@ -3,6 +3,7 @@ package web.api.mvc.controller;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,11 +40,11 @@ public abstract class FrontEndControllerServlet extends AbstractControllerServle
 				boolean sessionValidated = validateSession(cookies);
 				
 				if (!sessionValidated){
-					showLoginView(req, res,requestAttributes,parameters);
+					showLoginView(req, res,requestAttributes, getServletContext(), parameters);
 					return;
 				}
 			}
-			executeView(req,res,requestAttributes,parameters);
+			executeView(req,res,requestAttributes,getServletContext(),parameters);
 		} catch (Exception e){
 			showExceptionView(req,res, requestAttributes, e);
 		}
@@ -51,8 +52,8 @@ public abstract class FrontEndControllerServlet extends AbstractControllerServle
 	}
 	
 	private void showLoginView(HttpServletRequest req, HttpServletResponse res,
-			HashMap<String, Object> requestAttributes,HashMap<String,Object> requestParameters) throws Exception {
-		View view = new LoginView(req,res,requestAttributes,requestParameters);
+			HashMap<String, Object> requestAttributes,ServletContext servletContext, HashMap<String,Object> requestParameters) throws Exception {
+		View view = new LoginView(req,res,requestAttributes, servletContext, requestParameters);
 		
 		view.execute();
 	}
@@ -75,7 +76,7 @@ public abstract class FrontEndControllerServlet extends AbstractControllerServle
 	}
 
 	protected abstract void executeView(HttpServletRequest req, HttpServletResponse res,
-			HashMap<String, Object> requestAttributes, HashMap<String,Object> requestParameters) throws Exception;
+			HashMap<String, Object> requestAttributes, ServletContext servletContext, HashMap<String,Object> requestParameters) throws Exception;
 
 	private boolean validateSession(HashMap<String, String> cookies) {
 		String userCookie = (String)cookies.get("user");

@@ -1,8 +1,8 @@
 package web.api.mvc.view;
 
-import java.io.IOException;
 import java.util.HashMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,12 +18,12 @@ public abstract class WebView implements View {
 	
 	protected Model model;
 
-	protected void setModel(Model model){
+	public void setModel(Model model){
 		this.model = model;
 	}
 
 	public WebView(HttpServletRequest req, HttpServletResponse res,
-			HashMap<String,Object> requestAttributes,HashMap<String,Object> requestParameters) throws Exception {
+			HashMap<String,Object> requestAttributes,ServletContext servletContext, HashMap<String,Object> requestParameters) throws Exception {
 		this.req = req;
 		this.res = res;
 		this.requestAttributes = requestAttributes;
