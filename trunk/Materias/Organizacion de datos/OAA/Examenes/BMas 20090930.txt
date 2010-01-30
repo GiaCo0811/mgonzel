@@ -1,0 +1,128 @@
+Capacidades de elementos en nodos internos y hojas respect.: 3, 4
+
+NODO 0  (i, 3 elemento/s)
+  2 (sucesor izquierdo del primer elemento)
+(  414)  4(  721)  3(  848)  1
+
+	NODO 2  (h, 3 elemento/s)
+	(   66)(   96)(  400)
+	Siguiente hoja: 4
+
+	NODO 4  (h, 2 elemento/s)
+	(  414)(  567)
+	Siguiente hoja: 3
+
+	NODO 3  (h, 3 elemento/s)
+	(  721)(  797)(  823)
+	Siguiente hoja: 1
+
+	NODO 1  (h, 4 elemento/s)
+	(  848)(  905)(  915)(  968)
+	Siguiente hoja: 0
+
+
+
+Alta 900:
+
+NODO 0  (i, 1 elemento/s)
+  7 (sucesor izquierdo del primer elemento)
+(  848)  6
+
+	NODO 7  (i, 2 elemento/s)
+	  2 (sucesor izquierdo del primer elemento)
+	(  414)  4(  721)  3	
+
+		NODO 2  (h, 3 elemento/s)
+		(   66)(   96)(  400)
+		Siguiente hoja: 4
+
+		NODO 4  (h, 2 elemento/s)
+		(  414)(  567)
+		Siguiente hoja: 3
+
+		NODO 3  (h, 3 elemento/s)
+		(  721)(  797)(  823)
+		Siguiente hoja: 1
+
+
+	NODO 6  (i, 1 elemento/s)
+	  1 (sucesor izquierdo del primer elemento)
+	(  915)  5	
+
+		NODO 1  (h, 3 elemento/s)
+		(  848)(  900)(  905)
+		Siguiente hoja: 5
+
+		NODO 5  (h, 2 elemento/s)
+		(  915)(  968)
+		Siguiente hoja: 0
+
+
+
+Baja 915:
+
+NODO 0  (i, 1 elemento/s)
+  7 (sucesor izquierdo del primer elemento)
+(  848)  6
+
+	NODO 7  (i, 2 elemento/s)
+	  2 (sucesor izquierdo del primer elemento)
+	(  414)  4(  721)  3	
+
+		NODO 2  (h, 3 elemento/s)
+		(   66)(   96)(  400)
+		Siguiente hoja: 4
+
+		NODO 4  (h, 2 elemento/s)
+		(  414)(  567)
+		Siguiente hoja: 3
+
+		NODO 3  (h, 3 elemento/s)
+		(  721)(  797)(  823)
+		Siguiente hoja: 1
+
+
+	NODO 6  (i, 1 elemento/s)
+	  1 (sucesor izquierdo del primer elemento)
+	(  905)  5	
+
+		NODO 1  (h, 2 elemento/s)
+		(  848)(  900)
+		Siguiente hoja: 5
+
+		NODO 5  (h, 2 elemento/s)
+		(  905)(  968)
+		Siguiente hoja: 0
+
+
+
+Baja 968:
+
+NODO 0  (i, 1 elemento/s)
+  7 (sucesor izquierdo del primer elemento)
+(  721)  6
+
+	NODO 7  (i, 1 elemento/s)
+	  2 (sucesor izquierdo del primer elemento)
+	(  414)  4	
+
+		NODO 2  (h, 3 elemento/s)
+		(   66)(   96)(  400)
+		Siguiente hoja: 4
+
+		NODO 4  (h, 2 elemento/s)
+		(  414)(  567)
+		Siguiente hoja: 3
+
+
+	NODO 6  (i, 1 elemento/s)
+	  3 (sucesor izquierdo del primer elemento)
+	(  848)  1	
+
+		NODO 3  (h, 3 elemento/s)
+		(  721)(  797)(  823)
+		Siguiente hoja: 1
+
+		NODO 1  (h, 3 elemento/s)
+		(  848)(  900)(  905)
+		Siguiente hoja: 0
