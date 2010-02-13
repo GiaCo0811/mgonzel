@@ -1,0 +1,27 @@
+Sacado de un mail, pero mejor que nada es:
+
+No, no pude, pero te digo lo que tomaron. No tomaron nada de Flujo, ni de redes de transporte!!!!
+
+1) Definir Grafo Euleriano y Camino de Hamilton. Ejemplos de grafos que tengan una cosa pero no la otra.
+2) Probar que en todo grafo hay una cantidad par de vertices de grado impar.
+3) Dada una matriz de incidencia clasificar el grafo en niveles.
+4) ???
+
+5) Probar que para un arbol de "h" hojas y altura "a": h <= 2^a. Decía que había que usar inducción.
+6) Que condiciones deben cumplir m y n para que el grafo bipartito completo Kn,m tenga camino de euler o circuito de euler.
+7) ??? - Creo que uno mas de grafo bi partito pero no completo. no me acuerdo
+
+8) Probar que los atomos multiplicados entre si dan cero.
+9) Probar que si Ai es átomo: Ai * X = 0 ó Ai * X = Ai
+10) Analizar: "en toda algebra de boole ordenada al menos hay un átomo"
+
+12) Una ecuación de recurrencia donde el cambio de variable es Bn = (n+1) log An. Este lo tomaron en el primer parcial de este cuat.
+12) Uno de inducción que esta en la guia y de un lado dice (X^n - Y^n)
+14) Explicar el concepto de partición y ejemplificar.
+
+Solo 4 ejercicios y tomaron algunas cosas raras, grafos bipartitos! arboles con raiz!!! eso no vi que lo hayan tomado nunca....
+
+En fin, tené en cuenta que de lo nuevo tenes que tener el 50% bien y de lo viejo el 50% bien, no es que tenes que tener 2 ejercicios bien completos o algo así, se computa por items.
+
+Abrazo!
+Seba
