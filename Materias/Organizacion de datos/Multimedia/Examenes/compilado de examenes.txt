@@ -1,0 +1,45 @@
+******11 de 02 de 2009
+
+Punto I: Explique la función de la tabla de cuantización en el algoritmo de JPEG.
+Punto II: Describa la funcionalidad de los cuadros B. Describa los algoritmos y sus limitaciones para construirlos de acuerdo al estándar.
+Punto III: Seleccione un buffer que resuelva la provisión de datos para reproducción simultánea de un audio para dos o mas clientes simultáneos, cuyos pedidos estén desfasados en no más de 3 minutos.
+
+******11 de 02 de 2008
+
+1. Explique la forma de aplicación y la utilidad de los algoritmos Huffman y Lz77 en la
+compresión JPEG.
+2. Describa la función de los Vectores de Desplazamiento de MPEG. Explique cómo
+generarlos.
+3. Indique razones para no optar por un archivo indexado al estilo OAA en el almacenamiento
+de un video digital.
+
+******Evaluación Módulo Multimedia, 04 de Febrero de 2009
+
+1.	Analice y describa el funcionamiento y la utilidad de un Doble-Buffer si el proceso que escribe y lee es el mismo. ¿Y si hubiese un triple buffer, con procesos separados para las dos tareas?
+2.	Explique la forma de aplicación y la utilidad de los algoritmos Huffman y Lz77 en la compresión JPEG.
+3.	Si en lugar de utilizar MPEG-2 utilizamos el algoritmo Aleee que se diferencia del anterior en que comprime las imágenes completas. ¿Qué operaciones del algoritmo original no podríamos realizar y qué desventaja significaría esto en el resultado final?
+4.	¿Qué estándar de MPEG está destinado a información Multimedia (objetos Multimedia)? De ejemplos de otros dos estándares de MPEG que no cumplan con esto e indique la razón de ello.
+
+******Evaluación Módulo Multimedia, 15 de Diciembre de 2008
+
+1.	Explique la función de la Tabla de Cuantización en el algoritmo de JPEG.
+2.	Analice las ventajas y desventajas de utilizar un sistema de archivos multimedia que asigna un i-nodo multidimensional a cada archivo.
+3.	¿Qué ventajas/desventajas para la reproducción tendría un video almacenado en imágenes vectoriales frente a uno con imágenes Raster?
+4.	Si tuviésemos una imagen Blanco y Negro, ¿se modifica el proceso de compactación JPEG? Justifique.
+
+******Evaluación Módulo Multimedia, 05 de marzo de 2007
+¿Cómo puede guardar un archivo de vídeo MPEG para que se reproduzcan todos los tipos
+de “frames” de una pasada? Explique la respuesta.
+2. Si en lugar de utilizar MPEG-2 utilizamos el algoritmo Aleee que se diferencia del anterior
+en que comprime las imágenes completas. ¿Qué operaciones del algoritmo original no
+podríamos realizar y qué desventaja significaría esto en el resultado final?
+
+******Evaluación Criptografía y Multimedia , 04 de 02 de 2007
+1. ¿Cómo puede guardar un archivo de vídeo MPEG para que se reproduzcan
+todos los tipos de “frames” de una pasada? Explique la respuesta.
+2. (2do cuat 2006) Describa algunos parámetros (al menos tres) de MPEG2 que se
+relacionan con la calidad del archivo de video resultante.
+3. (Otros Cuat) Describa los tipos de buffer Circular y lineal, que se utilizan en una
+reproducción de video. Además compárelos y describa en qué situaciones son útiles.
+
+
