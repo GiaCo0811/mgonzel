@@ -1,0 +1,12 @@
+Punto I
+
+Explique la función de la tabla de cuantización en el algoritmo de JPEG.
+
+Punto II
+
+Describa la funcionalidad de los cuadros B. Describa los algoritmos y sus limitaciones para construirlos de acuerdo al estándar.
+
+Punto III
+
+Seleccione un buffer que resuelva la provisión de datos para reproducción simultánea de un audio para dos o mas clientes simultáneos, cuyos pedidos 
+estén desfasados en no más de 3 minutos.
