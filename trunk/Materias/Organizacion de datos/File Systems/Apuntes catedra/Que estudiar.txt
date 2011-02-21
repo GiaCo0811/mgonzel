@@ -1,0 +1,11 @@
+File Systems - Tanenbaum - Cap 6:
+TODO
+
+FS-HFS:
+TODO
+
+Unix and Linux pdf:
+seccion 10.6
+
+Windows 2000 pdf:
+seccion 11.7
