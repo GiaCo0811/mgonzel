@@ -1,11 +1,15 @@
-File Systems - Tanenbaum - Cap 6:
-TODO
+ File Systems.pdf 
+Capítulo completo sobre Sistemas de Archivo (en inglés)
+1721 KB
 
-FS-HFS:
-TODO
+FS - HFS.pdf 
+Documentación de HFS, última clase.
+113 KB
 
-Unix and Linux pdf:
-seccion 10.6
+Unix and Linux.pdf 
+Ver sección 10.6
+2309 KB
 
-Windows 2000 pdf:
-seccion 11.7
+Windows 2000.pdf 
+Ver Sección 11.7
+2532 KB
