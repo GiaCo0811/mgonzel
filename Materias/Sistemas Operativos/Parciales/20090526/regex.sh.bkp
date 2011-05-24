@@ -1,0 +1,6 @@
+#ª/bin/sh
+
+CODIGO_NOVEDAD=`sed 's@^\([^/]*\)/$1\(/[^/]*\)\{3\}$@\1@' TRADUCTOR.info`
+
+REF="\([^-]*\)"
+sed 's@$REF-$REF-$CODIGO_NOVEDAD-$REF-$REF-$REF$@\5\:$1\:\3\:\4\:\2\:\1@' NOVEDADES.dat > NOVEDADES_INBOUND.dat
