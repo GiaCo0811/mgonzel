@@ -1,5 +1,4 @@
 Mis libros:
-Base de datos (incluye fotocopia carpeta teorica): Rodrigo Varela
 
 Cuadernos:
 Mat Discreta: Cristian Masciotra
