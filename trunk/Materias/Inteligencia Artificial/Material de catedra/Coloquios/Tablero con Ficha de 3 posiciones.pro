@@ -16,7 +16,7 @@ lista= ficha*.
 predicates
 
 nondeterm ocupado(ficha) .
-nondeterm valida(ficha) .
+nondeterm valida(integer,integer,integer,integer) .
 nondeterm validaGiro(integer,integer,integer,integer).
 nondeterm mover(ficha, ficha).
 nondeterm salto(integer, integer).
@@ -37,8 +37,8 @@ giro(-1,0,1,0).
 giro(0,1,0,-1).
 giro(0,-1,0,1).
 
-ocupado(ficha(pos(1,4),pos(_,_)).
-ocupado(ficha(pos(4,2),pos(5,_)).
+ocupado(ficha(pos(1,4),pos(_,_))).
+ocupado(ficha(pos(4,2),pos(5,_))).
 
 %valida que este dentro del tablero
 valida(X,Y,Xa,Ya):-X<=5,Y<=5,Xa<=5,Ya<=5.	
@@ -48,16 +48,13 @@ validaGiro(X,Y,Xa,Ya):-Aux=X-Xa,Aux<=1,Aux>=0,Aux2=Y-Ya,Aux2<=1,Aux2>=0.
 perte(Ca,[Ca| _]):-!.
 perte(X,[_|Co] ):- perte(X,Co).
 
-mover(ficha(pos(X,Y),pos(Xa,Ya)),ficha(pos(Xf,Yf),pos(Xaf,Yaf))):-salto(A,B),Xf=X+A,Yf=Y+B,giro(C,D,E,F),
-															  Xf=Xf+C,Yf=Yf+D,Xaf=Xa+E,Yaf=Ya+F,validaGiro(Xf,Yf,Xaf,Yaf),
-															  valida(Xf,Yf,Xaf,Yaf),not(ocupado(ficha(pos(Xf,Yf),pos(Xaf,Yaf)))).
-pp(E,E,[E],_):-!,.
+mover(ficha(pos(X,Y),pos(Xa,Ya)),ficha(pos(Xf,Yf),pos(Xaf,Yaf))):-salto(A,B),Xf=X+A,Yf=Y+B,giro(C,D,E,F),Xf=Xf+C,Yf=Yf+D,Xaf=Xa+E,Yaf=Ya+F,validaGiro(Xf,Yf,Xaf,Yaf),valida(Xf,Yf,Xaf,Yaf),not(ocupado(ficha(pos(Xf,Yf),pos(Xaf,Yaf)))).
+pp(E,E,[E],_):-!.
 pp(Ei,Ef,L,[Ca|Col]):-mover(Ei,E2),not(perte(L,E2)),Ca=E2,pp(E2,Ef,[E2|L],Col).
 
 goal
 
-Inicio=ficha(pos(1,1),pos(2,2)),Final=ficha(pos(5,5),pos(4,4)),
-pp(Inicio,Final,[],Solucion).
+Inicio=ficha(pos(1,1),pos(2,2)),Final=ficha(pos(5,5),pos(4,4)),pp(Inicio,Final,[],Solucion).
 
 
 %Explicacion:
