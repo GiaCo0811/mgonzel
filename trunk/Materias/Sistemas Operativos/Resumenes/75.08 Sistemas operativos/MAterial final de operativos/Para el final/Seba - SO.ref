@@ -1,0 +1,380 @@
+-------------------------
+Comandos de Linux
+-------------------------
+
+strace: trace system calls and signals. En windows no hay strace.
+
+int atexit ( void ( * function ) (void) ): Set function to be executed on exit
+
+int setenv(const char *nombre, const char *valor, int sobrescribir);
+
+void unsetenv(const char *nombre);
+
+echo $$: dice el numero de proceso del shell
+
+execl()
+Una llamada al sistema que se utiliza normalmente en combinación con fork() es , la cual permite ejecutar un código (previamente compilado) desde otro programa. El programa que llama se deja de ejecutar.
+Como se reemplaza la imagen se toman todas la variables de ambiente como estaban.
+
+-----------------
+Arquitecturas
+-----------------
+
+IA-32: sometimes generically called x86-32, is the instruction set architecture of Intel's most successful microprocessors. This is a 32-bit extension of the original Intel x86 processor architecture. The term means Intel Architecture, 32-bit, distinguishing it from the preceding 16-bit x86 processors, and the later 64-bit architecture IA-64 implemented in the Itanium microprocessors.
+
+Ia64: Itanium's architecture differs dramatically from the x86 architectures (and the x86-64 extensions) used in other Intel processors. The architecture is based on explicit instruction-level parallelism, with the compiler making the decisions about which instructions to execute in parallel.
+
+em64t: x86-64 is a 64-bit superset of the x86 instruction set architecture. The x86-64 instruction set natively supports Intel's x86 and was designed by Advanced Micro Devices (AMD), who have since renamed it AMD64. This architecture has been cloned by Intel under the name Intel 64 (formerly known as EM64T among other names). AMD64 was created as an alternative to Intel and Hewlett Packard's radically different IA-64 architecture. Intel 64 is Intel's implementation of x86-64. 
+
+
+-----------------
+Intro a los SO
+-----------------
+Concepto de S.O.: 2 versiones
+        - SO como maquina extendida o maquina virtual: El SO preta una serie de servicios para que los programas se puedan
+        abstraer del hardware.
+        
+        - SO como administrador de recursos: 
+        
+        
+Modo Kernell vs Modo Usuario: 
+        Reestricciones sobre las instrucciones que se pueden ejecutar. 
+        SO applies layers of trust, or protection rings, to executing programs
+        Ojo que SO modes <> CPU modes
+
+Estructura del SO:
+        -       Sistemas monoliticos
+        -       Sistemas en capas: THE - dijstra
+
+Trap (interrupcion al sistema):
+        Para hacer llamadas al SO. Lo realiza un programa de usuario para transferir el control al SO.
+        A trap is a type of synchronous interrupt typically caused by an exceptional condition (e.g. division by zero or invalid memory access) in a user process. A trap usually results in a switch to kernel mode, wherein the operating system performs some action before returning control to the originating process.       
+
+Llamadas al sistema (system calls) <> llamadas a bibliotecas (library calls)
+
+System calls:  A system call is the mechanism used by an application program to request service from the operating system.
+Implica un salto al kernel.
+
+Library calls:
+Generally, operating systems provide a library that sits between normal programs and the rest of the operating system, usually the C library (libc), such as glibc and the Microsoft C runtime. This library handles the low-level details of passing information to the kernel and switching to supervisor mode, as well as any data processing and preparation which does not need to be done in privileged mode.
+
+API Win32: Windows solo muestra esta interfaz. Es imposible distinguir que es una llamada al SO y que es una llamada a bibliotecas.
+
+Virtualizacion:
+In computing, virtualization is a broad term that refers to the abstraction of computer resources.
+La virtualizacion esta bajando cada vez mas al hardware.
+Platform Virtualization
+        - Emulation: the virtual machine simulates the complete hardware, allowing an unmodified "guest" OS for a completely different CPU to be run. (VirtualPC)
+        - Operating system level virtualization: virtualizing a physical server at the operating system level, enabling multiple isolated and secure virtualized servers to run on a single physical server.
+        - Paravirtualization: In computing, paravirtualization is a virtualization technique that presents a software interface to virtual machines that is similar but not identical to that of the underlying hardware. Muy alto nivel de rendimiento. Necesita poder modificar el SO. No simula el hardware.
+        - Application Virtualization: JVM
+
+        Hypervisor
+        A hypervisor provides the virtualization abstraction of the underlying computer system. In full virtualization, a guest operating system runs unmodified on a hypervisor. However, improved performance and efficiency is achieved by having the guest operating system communicate with the hypervisor. By allowing the guest operating system to indicate its intent to the hypervisor, each can cooperate to obtain better performance when running in a virtual machine. This type of communication is referred to as paravirtualization.
+
+Pasos para atender una library call (TAN p.46):
+1. El programa (lenguaje C) mete los parametros de llamada en la pila
+2. Invocar al procedimiento de biblioteca
+3. Poner el codigo de llamada al sistema en un registro
+4. Ejecutar TRAP para cambiar el modo kernel
+5. El kernel determina el handler que tiene que ejecutar
+6. Ejecuta el handler (aca se podria bloquear el proceso para despues ocurrir la interrupcion de I/O)
+7. El SO vuelve al procedimiento de biblioteca
+8. El programa usuario limpia la pila
+
+
+-----------------
+Procesos
+-----------------
+
+El modelo supone que todos los procesos corren al mismo tiempo.
+El programa es la receta, el proceso es la actividad de cocinar.
+Procesos que permanecen en segundo plano para encargarse de una actividad se llaman demonios.
+
+fork: unica llamada para crear procesos. Crea una copia de la memoria, cadenas de entorno y archivos abiertos.
+Despues de fork el hijo hace execve para modificar su imagen de memoria. Fork devuelve 0 en el hijo.
+En windows la memoria es distinta desde el comienzo.
+
+Unix tiene jerarquia de procesos, windows no.
+
+Multiprogramacion (multitasking): In computing, multitasking is a method by which multiple tasks, also known as processes, share common processing resources such as a CPU. si hay mas del 50 % de uso de la cpu los programas
+tardan el doble por el context swiching.
+
+Multiprocesor: Multiprocessing is the use of two or more central processing units (CPUs) within a single computer system. 
+
+El dispatcher se encarga de cambiar el estado de los procesos.
+        - Bloqueado
+        - En ejecucion
+        - Listo
+
+El scheduler se encarga de decidir que proceso se ejecuta siguiente.
+
+Preemtive (apropiativo): El SO puede detener un proceso en ejecucion.
+Cooperative (no apropiativo): El proceso o se bloquea o cede la CPU en forma voluntaria.
+
+Unix prioriza load-balancing/equidad (tiempo equitativo entre procesos), windows response time.
+
+Sub-procesos: threads
+        - Los sub-procesos comparten el espacio de direcciones porque la idea es que cooperen
+        - No hay proteccion entre procesos
+        - Cada thread tiene su pila
+        
+NO comunicacion entre procesos.
+
+zoombie: On Unix and Unix-like computer operating systems, a zombie process or defunct process is a process that has completed execution but still has an entry in the process table, this entry being still needed to allow the process that started the zombie process to read its exit status (call wait)
+
+Orphan: A zombie process is not the same as an orphan process. An orphan process is a process that is still executing, but whose parent has died. They don't become zombie processes; instead, they are adopted by init (process ID 1), which waits on its children.
+
+Tabla de procesos: Reside en todo momento y contiene todos los PCB.
+
+Admin de memoria de procesos:
+        - text: codigo del programa
+        - data segment: Statically allocated and global data that are initialized with nonzero values
+        - bss: Global and statically allocated data that are initialized to zero by default are kept in what is colloquially called the BSS area of the process
+        - stack: The stack segment is where local variables are allocated. La pila crece de arriba para abajo.
+        - heap: The heap is where dynamic memory (obtained by malloc() and friends) comes from. As memory is allocated on the heap, the process's address space grows. It is typical for the heap to "grow upward." It is also typical for the heap to start immediately after the BSS area of the data segment.
+
+u_area: Informacion que no se necesita cuando el proceso no se esta ejecutando.
+        - Registros
+        - Informacion de la llamada al sistema actual
+        - Descriptores de archivo
+        - Contabilidad general (tiempo de exec,  
+        
+Implementacion de threads:
+        - Espacio de usuario: Es rapido ya que para cambiar de thread no hay que saltar al kernel. Las llamadas bloqueadoras al sistema bloquean todo el proceso, cambiando a otro proceso.El scheduling es implementado por el programador.
+        - En el kernel: el kernel mantiene una tabla de todos los sub procesos. Para iniciar y terminar threads se requiere llamadas al sistema que son costosas.
+        - Hibridos: El kernel ve grupos de threads.
+        
+Coroutines: Entra por un punto inicial y sale por otro y cuando vuelve vuelve al punto desde donde salio.
+
+Fibers: Like threads, fibers share address space; where a distinction exists, it is that fibers use co-operative multitasking while threads use pre-emptive multitasking. Threads often depend on the kernel's thread scheduler to preempt a busy thread and resume another thread; fibers yield themselves to run another fiber while executing.
+
+Algoritmos de scheduling:
+        - FIFO: Cola con los procesos. Cuando un proceso se bloquea vuelve al final de la cola.
+        - Shortest job next
+        - Round-robin: Se lo deja corriendo un tiempo fijo. Si no termino se expropia.
+        - 
+        
+Scheduling de tiempo real:
+        - Rate monotonic Scheduling: Se definen prioridades fijas y se expropian. Importa solo el periodo, no el tiempo de ejecución. Si el uso de CPU es muy alto no funciona. La prioridad se obtiene de saber cuantas veces por segundo se ejecuta. El que se ejecuta mas veces tiene mayor prioridad.
+        - Earliest deadline first: Se toma el que va a volver a empezar mas temprano. Mas complejo. Pero puede lograr una utilizacion del 100%.
+                        
+-----------------
+Booting
+-----------------
+
+El boot se hace en 2 etapas. Se leen los primero 512 que apuntan al grub o lillo.
+
+HAL: A hardware abstraction layer (HAL) is an abstraction layer, implemented in software, between the physical hardware of a computer and the software that runs on that computer. Its function is to hide differences in hardware from most of the operating system kernel, so that most of the kernel-mode code does not need to be changed to run on systems with different hardware. 
+
+-----------------------------
+Link-Edicion / Libraries
+-----------------------------
+Links:
+http://www.securityfocus.com/infocus/1872
+
+linker o link editor: 
+        Toma: Librerias y codigo objeto
+        Sale: Codigo objeto, un ejecutable, una libreria.
+        The linker also takes care of arranging the objects in a program's address space. 
+
+Tipos de librerias:
+        - Estaticas: Static libraries, by definition, cannot be shared. 
+        - load-time dynamic linking: El link-editor indica las llamadas. La biblioteca se carga cuando se levanta el programa. Se puede compartir librerias.
+        - run-time dynamic linking
+        En estos dos ultimos casos se debe realocar las librerias.
+        RAM sharing can be accomplished by using position independent code as in Unix, which leads to a complex but flexible architecture, or by using position dependent code as in Windows and OS/2.
+                
+Dynamic-linking: No se repite las bibliotecas en varios codigos fuentes.
+Some operating systems can only link in a library at loadtime, before the process starts executing; others may be able to wait until after the process has started to execute and link in the library just when it is actually referenced (i.e., during runtime). The latter is often called "delay loading". In either case, such a library is called a dynamically linked library.
+Dynamic linking means that the subroutines of a library are loaded into an application program at runtime, rather than being linked in at compile time,     
+
+Windows DLL: Las DLL ademas de dinamicas son compartidas.  Se pueden cargar en load o en run-time. The file formats for DLLs are the same as for Windows EXE files — that is, Portable Executable (PE) for 32-bit Windows, and New Executable (NE) for 16-bit Windows. As with EXEs, DLLs can contain code, data, and resources, in any combination. Tienen varias secciones. Los programas comparten el codigo pero no la data. No son PIC.
+
+OFF (Object file format): Formato del codigo objeto.
+
+DOS.COM: The simplest object file format is the DOS .COM format, which is simply a file of raw bytes that is always loaded at
+ a fixed location.
+
+DOS.EXE: he DOS executable header contains such relocation information, which allows multiple segments to be loaded at arbitrary memory addresses, and support executables larger than 64 KiB.
+
+COFF: COFF's main improvement over a.out was the introduction of multiple named sections in the object file. Different object files could have different numbers and types of sections.
+
+ELF (Executable and linking format): flexible and extensible. An ELF file has two views: the program header shows the segments used at run-time, while the section header lists the set of sections of the binary.
+
+PIC: Position independent code can be copied to any memory location without modification and then executed, unlike relocatable code which requires special processing by a linker to make it suitable for execution at a given location.
+La idea del PIC es copiar la biblioteca al espacio del proceso para que solo el proceso use el codigo.
+
+In the most basic sense, libraries can be divided into two categories: static libraries and shared libraries.
+Static libraries are a collection of object files, and conventionally they end with a ".a" suffix in UNIX variants, and ".lib" in Windows. When a program is linked against a static library, the machine code from the object files for any external functions used by the program is copied from the library into the final executable.
+In contrast to static libraries, with shared libraries the library code is not bound to the executable at link time. Depending on when and how the address bindings are done, the linking process can be categorized into prelinking, load time linking, implicit run-time linking and explicit run-time linking. 
+
+DLL en linux:
+        - Usa ELF: As this is not an article specifically on the ELF format, we will discuss in brief only those data structures which are relevant to our discussion. For dynamic linking, the ELF linker primarily uses two processor-specific tables, the Global Offset Table (GOT) and the Procedure Linkage Table (PLT). 
+                
+        - dlopen, dlclose se usan para cargar en tiempo de ejecucion
+                lib_handle = dlopen(lib_name, RTLD_LAZY);
+                lib_func = dlsym(lib_handle, "util_uno");
+                (*lib_func)();
+		dlclose(lib_handle);
+
+Relocation:
+One wrinkle that the loader must handle is that the actual location in memory of the library data cannot be known until after the executable and all dynamically linked libraries have been loaded into memory.      
+Se usa una import table para acelerar el proceso. Las direcciones del programa apuntan ahi y esa tabla es la que se toca para hacer el relocation.
+
+Pre-Binding: Suponer la dirección en la que se va a cargar la biblioteca y ya dejar las direcciones apuntando ahi.          
+        
+-----------------
+Objetos
+-----------------
+
+software component is a system element offering a predefined service and able to communicate with other components.
+
+-----------------
+Memoria
+----------------- 
+
+Reubicacion: Cargar un programa en diferentes secciones de memoria y que ande igual.
+Proteccion:  Que un programa no pueda acceder a cualquier lugar de la memoria.
+
+Intercambio: Como no hay suficiente memoria para contener todos los procesos activos, algunos deben mantenerse en el disco y traerse a la memoria en forma dinámica para que se ejecuten. Hay dos tecnicas:
+        - Swapping: Traer a la memoria un proceso -entero-. Un proceso puede volver a una direccion distinta.
+        - Memoria virtual: Permite que los programas se ejecuten aunque solo una parte de ellos este en memoria virtual.
+
+Esquemas de administracion de memoria:
+
+Esquemas de swapping:
+        - Particiones fiijas: Los trabajos se encolan para una partición. Puede que a un proceso le sobre lugar (fragmentación interna).
+        - Particiones variables: A cada trabajo se le asigna la porción que necesita. Se fragmenta la memoria.
+
+Memoria Virtual: Programas que no entran en memoria principal.
+        Overlays: El programa se divide en overlays que se cargan y se descargan. El programador se tiene que ocupar!
+        
+        Cada proceso necesita su propia tabla de paginas.
+        La tabla de paginas puede estar:
+                - En memoria principal con un registro de hardware que apunte a ella. Rapido hacer el context switch.
+                - En la TLB (registros de hardware). Cargar y descargarla es costoso.
+        
+        Tabla multinivel: Las tabla multiniveles son mas grandes que una sola tabla. Pero permite que si el programa usa partes muy distintas de la memoria solo con tener un par de tablas cargadas puedo responder a sus necesidades.
+        
+        Tabla invertida: Tiene una entrada por numero de frame. Hay que hacer una busqueda asociativa que se entra por numero de pagina. La busqueda tiene que ser por hash o por asociatividad. La tabla es mas chica porque hay menos frames que paginas.
+        
+        TLB: cache de la tabla de paginas. Acceso en paralelo. Se puede manejar por hardware o por software (RISC).
+                Como la TLB no es tan grande como la tabla completa no puedo hacer lo mismo de entrar directamente con el numero de pagina virtual --> para esto es asociativa!!
+        
+        MMU: Es un dispositivo de hardware que se ocupa del mapeo de memoria.
+        
+Algoritmos de reemplazo:
+        - Optimo: Reemplazar la tabla que se va a usar mas lejananamente.
+        - Not recently used: Tiene dos bits: R y M que indican el numero de importancia de la pagina. Cualquiera de las que tiene el numero mas bajo se puede reemplazar. El bit R se borra en cada ciclo.
+        - LRU: Desaloja a la pagina menos recientemente usada (TAN p. 219)
+                        - Usando un contador que se incrementa con cada instrucción. Cuando se lee una página se copia el valor del contador a su entrada en la tabla de paginas. La que tiene el valor del contador mas bajo se desaloja.
+                        - Usando una matriz de n x n. Con n el marco de pagina. Se encienden la fila. Se apaga la columna. La fila con valor mas bajo es la menos recientemente usada.
+                         
+Segmentacion: La gran diferencia con paginacion es que las paginas son de tamaño fijo. Cada segmento puede tener protecciones diferentes. La segmentacion trae el problema de fragmentación. Se puede hacer segmentos paginados. El programador tiene conocimiento de su existencia. Las longitudes se segmentos pueden variar. Cada segmento es una entidad logica y puede tener su tipo de proteccion definido.
+
+Protección:
+        - Registros base y limite para cada proceso (vieja)
+        - Segmentación: Cada segmento tipos de proteccion diferentes.
+        - Bits de protección en la tabla de páginas
+
+Working Set: Conjunto de paginas que un proceso esta usando en un momento dado. En vez de hacer paging-on-demand y que el programa haga fallos de pagina hasta que traiga todas las paginas que necesita se carga (pre-paginado).
+        - Para implementarlo idelamente se deben mantener las ultimas k paginas referenciadas
+        - Realmente: El conjunto de trabajo se define como las paginas a las que se hizo referencia en los ultimos t segundos. Se usa un bit R (solicitada en este tic)
+
+Pasos para un page fault:
+        - El proceso se bloquea
+        - Al no encontrarse la pagina se obtiene su copia del disco
+        - Si hay frames libres se copia la pagina ese frame
+        - Sino se elije una pagina para desalojar basandose en el algoritmo de reemplazo de paginas y se copia la pagina al frame  desalojado
+        - Se actualiza la page table
+        - El proceso pasa a ready para continuar su ejecución
+        
+Paginas compartidas (diapostiva 30 de MemVirt.pdf):
+        - Se comparten las páginas de código
+        - Se usan copias de las páginas de datos (copy-on-write)
+
+Copy-on-write (sometimes referred to as "COW") is an optimization strategy used in computer programming. The fundamental idea is that if multiple callers ask for resources which are initially indistinguishable, you can give them pointers to the same resource. This function can be maintained until a caller tries to modify its "copy" of the resource, at which point a true private copy is created to prevent the changes becoming visible to everyone else. 
+Esto se usa cuando se hace el fork y se copia la u_area.       
+                        
+-----------------
+Multimedia
+-----------------        
+
+Si se pierde un cuadro I es un problema. Si se pierde un cuadro B no importa tanto.
+
+quantization: convertir algo continuo a discreto.
+
+Rebobinado rapido con MPEG:
+- En bloque por cuadro se puede saltar de cuadro I en cuadro I. En bloque grande no se puede.
+- Pista con archivo grabado en avance rapido.
+VER PAGINA 485
+
+Formato de archivos:
+        - Bloque de disco acorde al cuadro: Indice al principio de cada cuadro. bloques de tamaño variable. Longitud de tiempo constante. Indice mas grande, mas uso de RAM.
+        - Bloque de disco mas grande que el cuadro: Indice al principio de cada bloque. Fragmentacion interna. Indice mas chico. Longtud de datos constante. Indice chico, poco uso de RAM. Se puede usar la opción de dividir cuadros entre bloques para eliminar la fragmentación interna.
+        Los indices se cargan en memoria.
+
+-----------------
+Archivos
+-----------------   
+http://bulma.net/body.phtml?nIdNoticia=968
+
+Archivos con correspondencia en memoria: p.391 TAN
+map - unmap. Se manejan junto con la memoria virtual.
+        - Fallos de pagina leen el archivo
+        - Elimina la necesidad de entrada/salida
+Problemas:
+        - No se puede saber cuanto bytes se escribieron en la pagina.
+        - Asegurarse que si dos procesos usan el archivo los dos accedan a la representacion en memoria
+        - El archivo puede ser mas grande que la memoria
+
+A virtual file system (VFS) or virtual filesystem switch is an abstraction layer on top of a more concrete file system. The purpose of a VFS is to allow client applications to access different types of concrete file systems in a uniform way. 
+
+Al hacer un fork se copian los file descriptors y el nuevo proceso apunta a la posicion del archivo donde la habia dejado el padre. Los dos apuntan a la misma entrada de la open file table. Lo que se duplica es la user file table.
+El objetivo de esto es permitir a un padre y a un hijo compartir una posicion de archivo.
+
+open() always creates a new entry in the open file table
+int dup(int fildes); --> Obtiene un file descriptor que apunta a la misma entrada de la open file table. El MISMO OFFSET!
+
+int flock(int fd, int operation); -->  If a process uses open(2) (or similar) to obtain more than one descriptor for the same file, these descriptors are treated independently by flock(). An attempt to lock the file using one of these file descriptors may be denied by a lock that the calling process has already placed via another descriptor.
+
+Log file systems: RAM es barata y los accesos a disco son caros. Se acumulan todas las escrituras a disco y se escriben al final en segmentos. Los i-nodes estan disperos en todo el disco. Se mantiene un mapa de i-nodes. Necesita un proceso limpiador que revise segmentos que tiene bloques en desuso.
+
+i-node table: Contiene en memoria todos los i-nodos de los archivos abiertos.
+
+--------------------
+Entrada/Salida
+------------------- 
+TAN 5.1.5
+
+El vector de interrupciones dice en que direccion de memoria esta el servicio para atender la interrupción.
+Hay una controladora de interrupciones que unifica el control.
+
+Formas de efectuar E/S
+        - E/S programada (spooling) : El procesador espera hasta que el dispositivo termine.
+        - E/S controlada por interrupciones: 
+        - E/S por DMA
+
+El uso de buffers en dispositivos de entrada como teclado y mouse permiten almacenar la entrada en un buffer y despues tomarla toda junta. Mas en concreto se puede utilizar para el doble click y la combinación de teclas.
+
+El uso de buffers en dispositivos de salida sirve para dejar todo en el buffer y que el dispositivo de salida lo tome a su velocidad.
+
+El manejador de interrupciones esta debajo del controlador de dispositivo. Esto es porque el driver es el que se bloquea cuando se hace la llamada a I/O.
+
+--------------------
+GUI
+------------------- 
+
+Windows captura las acciones y las convierte en mensajes que envia al programa. El programa tiene una cola de mensajes.
+Windows los sistemas de ventanas y de GUI estan mezclados dentro de la GDI y situados en el kernel lo que dificulta su mantenimiento.
+
+X es un sistema de ventanas cliente/servidor. No es una GUI completa, sobre X corre XLib.  El servidor es la PC del usuario. El X corre en modo usuario. Es modular, consta de varias capas --> lo que lo hace portatil y flexible.
+X es independiente del SO. X no es un window manager. Los clientes acceden al protocolo a traves de la Xlib.
+
+En windows el SO sabe a que procedimiento tiene que llamar (registra callbacks)
+X no puede llamar a procedimientos del programa solo envia eventos. El programa los escucha y actua en consecuencia.
+X es mas parecido al patron observador-observable.
+
+Los objetos basicos de toda GUI son los widgets.
+

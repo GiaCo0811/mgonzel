@@ -1,0 +1,28 @@
+Respuesta a practicas:
+
+Primera: 	 	 	 	 	 
+
+ Linea 18-19-20 Ago15 main: 	1) Proceso  [PID]  Ve_uno no tiene valor 
+ Liea 9-10 Ago15 func 	Proceso [PID]  thread 3083979696 Ve_uno=ALPHA	 
+ Linea 24-25-26 Ago15 main: 	2) Proceso [PID]  Ve_uno no tiene valor) 
+ Linea 5 shell 	shell [PID] Ve_uno=THETA 
+ NOTA: La clave es que la variable de ambiente no se exporta desde el script y que el unsetenv dentro borra el valor de a variable.
+
+ 	
+Segunda:
+ 	 	 	 	 	 	   
+ indicar en el siguiente formulario que imprime. 
+ Linea 19-20-21 Ago28 main: 	1) Proceso  [PID]  Ve_uno no tiene valor 
+ Linea 12-13 Ago28 func 	Proceso  [PID]  thread  [THID]  Ve_uno=ALPHA 
+ Linea 24-25-26 Ago15 main: 	Proceso  [PID] Ve_uno=ALPHA 
+ Linea 5 shell 	sell [PID]  Ve_uno=GAMMA 
+
+ Un setenv dentro, crea el valor.
+ 
+ 
+Tercera:
+
+Thread 3083762608 leído <abcdefhghi>
+Thread 3075369904 leído <abcdefhghi>
+Thread 3083762608 leído <1111111111>
+Thread 3075369904 leído <1111111111>
