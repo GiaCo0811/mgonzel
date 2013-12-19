@@ -1,0 +1,9 @@
+ Unidad 1: Conceptos básicos de la programación concurrente.
+
+ Unidad 2: Representación y ciclo de vida de los procesos.
+
+ Unidad 3: Interacción de procesos (Corrección. Propiedades de un programa concurrente correcto. Invariantes. Entidades pasivas y activas. Exclusión mutua y otros métodos. Sincronización con variables compartidas. Primitivas de sincronización para variables compartidas. Abrazo mortal. El problema de los filósofos comensales. Otros modelos de problemas típicos en concurrencia.)
+
+Unidad 4: Semáforos (Introducción. Problema del productor-consumidor. Otros problemas típicos en concurrencia, resueltos vía semáforos. Invariantes de semáforos.
+
+Unidad 5: Regiones críticas y Monitores (Regiones críticas. Regiones críticas condicionales. Soluciones de los problemas de concurrencia mediante regiones. Monitores. El problema productor-consumidor. Semáforos y monitores. Problema de lectores – escritores. Problema de filósofos comensales. Invariantes de monitores.)
